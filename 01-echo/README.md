@@ -8,7 +8,7 @@ Build with `cargo run`
 Then from the directory maelstrom is installed run
 
 ```
-./maelstrom test -w echo --bin ~/src/fly-io-distributed-systems-challenges/echo/target/debug/echo --node-count 1 --time-limit 10
+./maelstrom test -w echo --bin ~/src/fly-io-distributed-systems-challenges/01-echo/target/debug/echo --node-count 1 --time-limit 10
 ```
 
 See test resuts:

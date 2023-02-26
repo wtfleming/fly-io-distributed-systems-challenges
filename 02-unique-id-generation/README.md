@@ -11,7 +11,7 @@ Build with `cargo run`
 Then from the directory maelstrom is installed run
 
 ```
-./maelstrom test -w unique-ids --bin ~/src/fly-io-distributed-systems-challenges/unique-id-generation/target/debug/unique-id-generation --time-limit 30 --rate 1000 --node-count 3 --availability total --nemesis partition
+./maelstrom test -w unique-ids --bin ~/src/fly-io-distributed-systems-challenges/02-unique-id-generation/target/debug/unique-id-generation --time-limit 30 --rate 1000 --node-count 3 --availability total --nemesis partition
 ```
 
 See test resuts:
