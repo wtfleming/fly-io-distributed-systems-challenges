@@ -8,13 +8,8 @@ In this challenge, you'll need to implement a broadcast system that gossips mess
 Build with `cargo run`
 Then from the directory maelstrom is installed run
 
-
-
-
 ```
-./maelstrom test -w broadcast --bin ~/src/fly-io-distributed-systems-challenges/03-1-single-node-broadcast/target/debug/single-node-broadcast --node-count 1 --time-limit 20 --rate 10
-
-./maelstrom test -w unique-ids --bin ~/src/fly-io-distributed-systems-challenges/03-1-single-node-broadcast/target/debug/unique-id-generation --time-limit 30 --rate 1000 --node-count 3 --availability total --nemesis partition
+./maelstrom test -w broadcast --bin ~/src/fly-io-distributed-systems-challenges/03a-single-node-broadcast/target/debug/single-node-broadcast --node-count 1 --time-limit 20 --rate 10
 ```
 
 See test resuts:
