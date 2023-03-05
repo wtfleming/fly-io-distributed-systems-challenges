@@ -84,6 +84,7 @@ struct ReplyGenerateMessage {
 }
 
 // ----- Reply handlers -----
+// Reply to an init message
 fn reply_init(
     node_id: &String,
     msg: &RequestInitMessage,
@@ -105,6 +106,7 @@ fn reply_init(
     Ok(())
 }
 
+// Reply to a generate message
 fn reply_generate(
     node_id: &String,
     echo_msg: &RequestGenerateMessage,
