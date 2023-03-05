@@ -1,4 +1,6 @@
-use serde::{Deserialize, Serialize};
+mod message_models;
+use crate::message_models::*;
+
 use serde_json::Value;
 use std::io;
 
@@ -7,131 +9,6 @@ struct State {
     next_msg_id: u32,
     node_id: String, // TODO, this should probably be an Option<String>
     broadcasts: Vec<i32>,
-}
-
-// ----- Message Structs -----
-#[derive(Serialize, Deserialize)]
-struct RequestInitMessageBody {
-    #[serde(rename(serialize = "type", deserialize = "type"))]
-    kind: String,
-    msg_id: u32,
-    node_id: String,
-    node_ids: Vec<String>,
-}
-
-#[derive(Serialize, Deserialize)]
-struct RequestInitMessage {
-    id: u32,
-    src: String,
-    dest: String,
-    body: RequestInitMessageBody,
-}
-
-#[derive(Serialize, Deserialize)]
-struct ReplyInitMessageBody {
-    #[serde(rename(serialize = "type", deserialize = "type"))]
-    kind: String,
-    msg_id: u32,
-    in_reply_to: u32,
-}
-
-#[derive(Serialize, Deserialize)]
-struct ReplyInitMessage {
-    src: String,
-    dest: String,
-    body: ReplyInitMessageBody,
-}
-
-// ----------- Broadcast messages
-#[derive(Serialize, Deserialize)]
-struct RequestBroadcastMessageBody {
-    #[serde(rename(serialize = "type", deserialize = "type"))]
-    kind: String,
-    message: i32,
-    msg_id: u32,
-}
-
-#[derive(Serialize, Deserialize)]
-struct RequestBroadcastMessage {
-    src: String,
-    dest: String,
-    body: RequestBroadcastMessageBody,
-}
-
-#[derive(Serialize, Deserialize)]
-struct ReplyBroadcastMessageBody {
-    #[serde(rename(serialize = "type", deserialize = "type"))]
-    kind: String,
-    msg_id: u32,
-    in_reply_to: u32,
-}
-
-#[derive(Serialize, Deserialize)]
-struct ReplyBroadcastMessage {
-    src: String,
-    dest: String,
-    body: ReplyBroadcastMessageBody,
-}
-
-// ----------- Topology messages
-#[derive(Serialize, Deserialize)]
-struct RequestTopologyMessageBody {
-    #[serde(rename(serialize = "type", deserialize = "type"))]
-    kind: String,
-    msg_id: u32,
-}
-
-#[derive(Serialize, Deserialize)]
-struct RequestTopologyMessage {
-    src: String,
-    dest: String,
-    body: RequestTopologyMessageBody,
-}
-
-#[derive(Serialize, Deserialize)]
-struct ReplyTopologyMessageBody {
-    #[serde(rename(serialize = "type", deserialize = "type"))]
-    kind: String,
-    msg_id: u32,
-    in_reply_to: u32,
-}
-
-#[derive(Serialize, Deserialize)]
-struct ReplyTopologyMessage {
-    src: String,
-    dest: String,
-    body: ReplyTopologyMessageBody,
-}
-
-// ----------- Read messages
-#[derive(Serialize, Deserialize)]
-struct RequestReadMessageBody {
-    #[serde(rename(serialize = "type", deserialize = "type"))]
-    kind: String,
-    msg_id: u32,
-}
-
-#[derive(Serialize, Deserialize)]
-struct RequestReadMessage {
-    src: String,
-    dest: String,
-    body: RequestReadMessageBody,
-}
-
-#[derive(Serialize, Deserialize)]
-struct ReplyReadMessageBody {
-    #[serde(rename(serialize = "type", deserialize = "type"))]
-    kind: String,
-    messages: Vec<i32>,
-    msg_id: u32,
-    in_reply_to: u32,
-}
-
-#[derive(Serialize, Deserialize)]
-struct ReplyReadMessage {
-    src: String,
-    dest: String,
-    body: ReplyReadMessageBody,
 }
 
 // ----- Reply handlers -----
