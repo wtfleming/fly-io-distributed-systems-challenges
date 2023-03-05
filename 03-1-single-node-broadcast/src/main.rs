@@ -1,7 +1,6 @@
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::io;
-use std::io::Write;
 
 // Struct to store the app's state in
 struct State {
@@ -137,7 +136,7 @@ struct ReplyReadMessage {
 
 // ----- Reply handlers -----
 // Reply to an init message
-fn reply_init(state: &State, msg: &RequestInitMessage) -> serde_json::Result<()> {
+fn handle_init(state: &State, msg: &RequestInitMessage) -> serde_json::Result<()> {
     let reply = ReplyInitMessage {
         src: state.node_id.to_string(),
         dest: msg.src.to_string(),
@@ -150,7 +149,7 @@ fn reply_init(state: &State, msg: &RequestInitMessage) -> serde_json::Result<()>
 
     let j = serde_json::to_string(&reply)?;
     println!("{}", j);
-    io::stdout().flush().unwrap();
+
     Ok(())
 }
 
@@ -232,7 +231,7 @@ fn main() -> io::Result<()> {
             "init" => {
                 let msg: RequestInitMessage = serde_json::from_str(&buffer)?;
                 state.node_id = msg.dest.clone();
-                reply_init(&state, &msg)?;
+                handle_init(&state, &msg)?;
             }
             "broadcast" => {
                 let broadcast_msg: RequestBroadcastMessage = serde_json::from_str(&buffer)?;
