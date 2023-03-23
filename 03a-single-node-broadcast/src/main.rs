@@ -11,6 +11,13 @@ struct State {
     broadcasts: Vec<i32>,
 }
 
+fn send_message(msg: impl serde::Serialize) -> serde_json::Result<()> {
+    let j = serde_json::to_string(&msg)?;
+    println!("{}", j);
+
+    Ok(())
+}
+
 // ----- Reply handlers -----
 // Reply to an init message
 fn handle_init(state: &State, msg: &RequestInitMessage) -> serde_json::Result<()> {
@@ -24,10 +31,7 @@ fn handle_init(state: &State, msg: &RequestInitMessage) -> serde_json::Result<()
         },
     };
 
-    let j = serde_json::to_string(&reply)?;
-    println!("{}", j);
-
-    Ok(())
+    send_message(&reply)
 }
 
 // Reply to a generate message
@@ -47,10 +51,7 @@ fn handle_broadcast_msg(
 
     state.broadcasts.push(broadcast_msg.body.message);
 
-    let j = serde_json::to_string(&broadcast_reply_msg)?;
-    println!("{}", j);
-
-    Ok(())
+    send_message(&broadcast_reply_msg)
 }
 
 fn handle_topology_msg(
@@ -66,10 +67,7 @@ fn handle_topology_msg(
             in_reply_to: broadcast_msg.body.msg_id,
         },
     };
-    let j = serde_json::to_string(&topology_reply_msg)?;
-    println!("{}", j);
-
-    Ok(())
+    send_message(&topology_reply_msg)
 }
 
 fn handle_read_msg(state: &State, broadcast_msg: &RequestReadMessage) -> serde_json::Result<()> {
@@ -83,10 +81,7 @@ fn handle_read_msg(state: &State, broadcast_msg: &RequestReadMessage) -> serde_j
             in_reply_to: broadcast_msg.body.msg_id,
         },
     };
-    let j = serde_json::to_string(&topology_reply_msg)?;
-    println!("{}", j);
-
-    Ok(())
+    send_message(&topology_reply_msg)
 }
 
 fn main() -> io::Result<()> {
